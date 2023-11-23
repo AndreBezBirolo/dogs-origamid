@@ -1,11 +1,23 @@
 import './App.css'
-import Api from "./api/Api.jsx";
+import Header from "./Components/Header.jsx";
+import Footer from "./Components/Footer.jsx";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Home from "./Components/Home.jsx";
+import Login from "./Components/Login/Login.jsx";
 
 function App() {
     return (
         <>
-            <div>App React</div>
-            <Api></Api>
+            <div>
+                <BrowserRouter>
+                    <Header></Header>
+                    <Routes>
+                        <Route path="/" element={<Home/>}></Route>
+                        <Route path="/login" element={<Login/>}></Route>
+                    </Routes>
+                    <Footer></Footer>
+                </BrowserRouter>
+            </div>
         </>
     )
 }
