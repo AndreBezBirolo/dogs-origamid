@@ -3,9 +3,11 @@ import React from "react";
 import Input from "../Forms/Input.jsx";
 import Button from "../Forms/Button.jsx";
 import useForm from "../../Hooks/UseForm.jsx";
-import {TOKEN_POST, USER_GET} from "../../api.jsx";
+import {USER_GET} from "../../api.jsx";
+import {UserContext} from "../../UserContext.jsx";
 
 const LoginForm = () => {
+    const {userLogin} = React.useContext(UserContext);
     const username = useForm();
     const password = useForm();
 
@@ -28,12 +30,7 @@ const LoginForm = () => {
 
         if (!(username.validate() && password.validate())) return;
 
-        const {url, options} = TOKEN_POST({username: username.value, password: password.value});
-        const response = await fetch(url, options)
-        const json = (await response).json()
-        window.localStorage.setItem('token', json.token);
-        await getUser(json.token);
-        console.log('json:', json)
+        userLogin(username.value, password.value);
     }
 
     return <section>
